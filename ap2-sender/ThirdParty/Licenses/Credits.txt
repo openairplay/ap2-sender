@@ -1,0 +1,21 @@
+libssl - Copyright (c) 1998-2018 The OpenSSL Project
+Copyright (c) 1995-1998 Eric A. Young, Tim J. Hudson
+(License https://www.openssl.org/source/license.txt) (Sources https://www.openssl.org/source/openssl-1.0.2o.tar.gz)
+
+curve25519-donna - Copyright 2008, Google Inc. All rights reserved.
+(License https://github.com/agl/curve25519-donna/blob/master/LICENSE.md)
+(Sources https://github.com/agl/curve25519-donna/tree/master)
+
+ed25519 - Copyright (c) 2015 Orson Peters <orsonpeters@gmail.com>
+(License https://github.com/orlp/ed25519/blob/master/license.txt)
+(Sources https://github.com/orlp/ed25519)
+
+csrp - Copyright (c) 2013 Tom Cocagne
+(License https://github.com/hoccer/csrp/blob/master/LICENSE)
+(Sources https://github.com/hoccer/csrp)
+
+chachapoly - Copyright (c) 2015 Grigori Goronzy <goronzy@kinoho.net>
+(Sources https://github.com/grigorig/chachapoly)
+
+rfc6234 - Copyright (c) 2011 IETF Trust
+(Sources https://github.com/massar/rfc6234)

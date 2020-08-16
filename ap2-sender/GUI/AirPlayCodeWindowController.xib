@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="AirPlayCodeWindowController">
+            <connections>
+                <outlet property="btnCancel" destination="Ofv-Hl-aKq" id="tzK-MY-W3L"/>
+                <outlet property="btnOK" destination="9U7-wl-muu" id="l6L-qa-kas"/>
+                <outlet property="textFieldCode" destination="LH3-Kg-XOH" id="v9b-5m-NRG"/>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="AirPlay Code" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="F0z-JX-Cv5">
+            <windowStyleMask key="styleMask" titled="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="470" height="130"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <view key="contentView" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="470" height="129"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J7b-LW-8Nn">
+                        <rect key="frame" x="107" y="92" width="345" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="4N0-g1-8EZ"/>
+                        </constraints>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="The AirPlay device requires a code:" id="h7w-p5-kt2">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LH3-Kg-XOH">
+                        <rect key="frame" x="109" y="56" width="341" height="21"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="mSN-No-Kp5">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="0Yw-ng-HB6"/>
+                        </connections>
+                    </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9U7-wl-muu">
+                        <rect key="frame" x="374" y="13" width="82" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="a8S-Dl-85p"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VhE-zR-gVi">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="btnOKAction:" target="-2" id="oiM-B1-4NP"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ofv-Hl-aKq">
+                        <rect key="frame" x="292" y="13" width="82" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="Vlk-IM-USv"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Cat-1K-RdC">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="btnCancelAction:" target="-2" id="iQK-j4-LuX"/>
+                        </connections>
+                    </button>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YEK-B8-h0d">
+                        <rect key="frame" x="20" y="42" width="73" height="67"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="73" id="2Kh-wn-ia2"/>
+                            <constraint firstAttribute="height" constant="67" id="wyA-EF-JAc"/>
+                        </constraints>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSApplicationIcon" id="T4f-xD-NVm"/>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="LH3-Kg-XOH" firstAttribute="leading" secondItem="J7b-LW-8Nn" secondAttribute="leading" id="1mP-2c-HdQ"/>
+                    <constraint firstItem="J7b-LW-8Nn" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="109" id="AJw-fk-Xh2"/>
+                    <constraint firstItem="Ofv-Hl-aKq" firstAttribute="top" secondItem="LH3-Kg-XOH" secondAttribute="bottom" constant="15" id="BgE-t1-MW2"/>
+                    <constraint firstItem="J7b-LW-8Nn" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="20" id="CII-cL-idl"/>
+                    <constraint firstItem="YEK-B8-h0d" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="20" id="Cmp-kv-aV2"/>
+                    <constraint firstAttribute="trailing" secondItem="J7b-LW-8Nn" secondAttribute="trailing" constant="20" id="LBV-WM-91U"/>
+                    <constraint firstItem="9U7-wl-muu" firstAttribute="leading" secondItem="Ofv-Hl-aKq" secondAttribute="trailing" constant="12" id="Z03-xc-e2V"/>
+                    <constraint firstAttribute="bottom" secondItem="9U7-wl-muu" secondAttribute="bottom" constant="20" id="b23-ed-Dr8"/>
+                    <constraint firstAttribute="trailing" secondItem="9U7-wl-muu" secondAttribute="trailing" constant="20" id="bYi-0t-xSd"/>
+                    <constraint firstAttribute="trailing" secondItem="LH3-Kg-XOH" secondAttribute="trailing" constant="20" id="gCI-Bs-yi3"/>
+                    <constraint firstItem="LH3-Kg-XOH" firstAttribute="top" secondItem="J7b-LW-8Nn" secondAttribute="bottom" constant="15" id="pKc-qE-5WV"/>
+                    <constraint firstAttribute="bottom" secondItem="Ofv-Hl-aKq" secondAttribute="bottom" constant="20" id="w3F-wI-XHe"/>
+                    <constraint firstItem="YEK-B8-h0d" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" id="xc7-dS-xNv"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
+            </connections>
+            <point key="canvasLocation" x="472" y="241"/>
+        </window>
+    </objects>
+    <resources>
+        <image name="NSApplicationIcon" width="32" height="32"/>
+    </resources>
+</document>
