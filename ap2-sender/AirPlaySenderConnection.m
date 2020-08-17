@@ -660,13 +660,81 @@ typedef NS_ENUM(NSInteger, AirPlaySenderState) {
         [self pairingDidFailWithError:@"proof is missing"];
         return;
     }
+    
+    int sessionKeyLen = 0;
+    const unsigned char *sessionKey = srp_user_get_session_key(_user, &sessionKeyLen);
+    if (!sessionKey) {
+        [self pairingDidFailWithError:@"no valid session key"];
+        return;
+    }
+    hexdump("SRP Shared key:\n", (unsigned char *)sessionKey, 64);
+    
     TLV8Item *serverEncryptedDataItem = [items itemWithTag:TLV8TagEncryptedData];
     if (serverEncryptedDataItem) {
-        NSData *serverEncryptedData = serverEncryptedDataItem.value;
-        if (serverEncryptedData) {
-            //during the M4 step of the pairing process, in addition of the PROOF TLV used in regular pair-setup, the following TLV is added:
+        NSData *serverEncryptedDataWithTag = serverEncryptedDataItem.value;
+        if (serverEncryptedDataWithTag) {
+            //See https://openairplay.github.io/airplay-spec/pairing/hkp.html#mfi-authentication
+            //During the M4 step of the pairing process, in addition of the PROOF TLV used in regular pair-setup, the following TLV is added:
             //TLV: 0x05,N,ENCRYPTED_DATA_WITH_TAG where N (int16) is the length of ENCRYPTED_DATA_WITH_TAG
-            NSLog(@"Encrypted data is available (%lu bytes).", (unsigned long)serverEncryptedData.length);
+            NSLog(@"Encrypted data is available (%lu bytes).", (unsigned long)serverEncryptedDataWithTag.length);
+            
+            unsigned char prk[USHAMaxHashSize+1];
+            uint8_t session_key[32];
+            int err = hkdfExtract(SHA512, (const unsigned char *)"Pair-Setup-Encrypt-Salt", 23, sessionKey, 64, prk);
+            if (err != shaSuccess) {
+                [self pairingDidFailWithError:[NSString stringWithFormat:@"hashHkdf(): hkdfExtract Error %d.\n", err]];
+                return;
+            }
+            err = hkdfExpand(SHA512, prk, USHAHashSize(SHA512), (const unsigned char *)"Pair-Setup-Encrypt-Info", 23, session_key, 32);
+            if (err != shaSuccess) {
+                [self pairingDidFailWithError:[NSString stringWithFormat:@"hashHkdf(): hkdfExpand Error %d.\n", err]];
+                return;
+            }
+            
+            NSData *encryptedTlvData = [serverEncryptedDataWithTag subdataWithRange:NSMakeRange(0, serverEncryptedDataWithTag.length - TAG_LENGTH)];
+            NSData *tagData = [serverEncryptedDataWithTag subdataWithRange:NSMakeRange(serverEncryptedDataWithTag.length - TAG_LENGTH, TAG_LENGTH)];
+            const void *enc_tlv = encryptedTlvData.bytes;
+            int enc_tlv_len = (int)encryptedTlvData.length;
+            const void *tag = tagData.bytes;
+            unsigned char *dec_tlv = (unsigned char *)malloc(sizeof(unsigned char) * enc_tlv_len);
+            
+            char zeroBytes[4] = {0x00, 0x00, 0x00, 0x00};
+            NSMutableData *nonce = [[NSMutableData alloc] initWithBytes:zeroBytes length:4];
+            [nonce appendData:[NSData dataWithBytes:"PS-Msg04" length:8]];
+             
+            struct chachapoly_ctx ctx;
+            chachapoly_init(&ctx, session_key, 256);
+            chachapoly_crypt(&ctx, nonce.bytes, NULL, 0, (void *)enc_tlv, enc_tlv_len, dec_tlv, (void *)tag, TAG_LENGTH, 0);
+            
+            //Decrypted data contains TLVs, which contain MFi Signature (signed by Apple authenticator IC) and used MFi certificate.
+            NSArray<TLV8Item *> *tlvItems = [TLV8 decode:[NSData dataWithBytes:dec_tlv length:enc_tlv_len]];
+            free(dec_tlv);
+            TLV8Item *signatureItem = [tlvItems itemWithTag:TLV8TagSignature];
+            TLV8Item *certificateItem = [tlvItems itemWithTag:TLV8TagCertificate];
+            NSData *signatureData = signatureItem.value;
+            NSData *certificateData = certificateItem.value;
+            NSLog(@"Signature: %lu bytes, certificate: : %lu bytes", (unsigned long)signatureData.length, certificateData.length);
+            
+            //The message signed is a HKDF-SHA-512 key with the following parameters:
+            //    InputKey = <SRP Shared key>
+            //    Salt = ”MFi-Pair-Setup-Salt”
+            //    Info = ”MFi-Pair-Setup-Info”
+            //    OutputSize = 32 bytes
+            unsigned char prk2[USHAMaxHashSize+1];
+            uint8_t hkdf_key[32];
+            err = hkdfExtract(SHA512, (const unsigned char *)"MFi-Pair-Setup-Salt", 19, sessionKey, 64, prk2);
+            if (err != shaSuccess) {
+                [self pairingDidFailWithError:[NSString stringWithFormat:@"hashHkdf(): hkdfExtract Error %d.\n", err]];
+                return;
+            }
+            err = hkdfExpand(SHA512, prk2, USHAHashSize(SHA512), (const unsigned char *)"MFi-Pair-Setup-Info", 19, hkdf_key, 32);
+            if (err != shaSuccess) {
+                [self pairingDidFailWithError:[NSString stringWithFormat:@"hashHkdf(): hkdfExpand Error %d.\n", err]];
+                return;
+            }
+            hexdump("Message to sign:\n", hkdf_key, 32);
+            
+            //TODO: sign the message using RSA-1024 with SHA-1 hash algorithm
         }
     }
     
@@ -676,14 +744,6 @@ typedef NS_ENUM(NSInteger, AirPlaySenderState) {
         [self pairingDidFailWithError:@"server authentication failed"];
         return;
     }
-    
-    int sessionKeyLen = 0;
-    const unsigned char *sessionKey = srp_user_get_session_key(_user, &sessionKeyLen);
-    if (!sessionKey) {
-        [self pairingDidFailWithError:@"no valid session key"];
-        return;
-    }
-    hexdump("Session key:\n", (unsigned char *)sessionKey, 64);
     
     //Create a random seed (auth_secret <a>), and a key pair out of that seed (<a_priv> and <a_pub>)
     unsigned char public_key[32], private_key[64];
