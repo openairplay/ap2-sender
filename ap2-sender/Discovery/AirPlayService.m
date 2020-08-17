@@ -117,13 +117,17 @@
         addr = [addr stringByAppendingFormat:@"\t\t%@:%@\n", [addrInfo objectForKey:@"address"],
                 [addrInfo objectForKey:@"port"]];
     }
+    NSString *featuresString = [NSString stringWithFormat:@"0x%lX", (self.features & 0xffffffff)];;
+    if ((self.features >> 32 & 0xffffffff) != 0) {
+        featuresString = [featuresString stringByAppendingFormat:@",0x%lX", (self.features >> 32 & 0xffffffff)];
+    }
     return [NSString stringWithFormat:@"%@:\n\t"
             "MAC address: %@\n\t"
             "model: %@\n\t"
             "server version: %@\n\t"
             "host name: %@\n\t"
             "IP addresses:\n%@\t"
-            "Features: %lu\n\t\t"
+            "Features: %@\n\t\t"
             "Video: %d\n\t\t"
             "Photo: %d\n\t\t"
             "VideoFairPlay: %d\n\t\t"
@@ -150,7 +154,7 @@
             self.serverVersion,
             self.netService.hostName,
             addr,
-            self.features,
+            featuresString,
             [self isVideoSupported],
             [self isPhotoSupported],
             [self isVideoFairPlaySupported],
