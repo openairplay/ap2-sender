@@ -374,7 +374,29 @@ typedef NS_ENUM(NSInteger, AirPlaySenderState) {
 #pragma mark - Handlers
 
 - (void)handleMessage:(CFHTTPMessageRef)message {
-    
+    //Gets the body from a CFHTTPMessage object.
+    NSString *contentLengthValue = (__bridge_transfer NSString *)CFHTTPMessageCopyHeaderFieldValue(message, (CFStringRef)@"Content-Length");
+    unsigned contentLength = contentLengthValue ? [contentLengthValue intValue] : 0;
+    if (contentLength != 0) {
+        NSString *contentTypeValue = (__bridge_transfer NSString *)CFHTTPMessageCopyHeaderFieldValue(message, (CFStringRef)@"Content-Type");
+        if ([contentTypeValue isEqualToString:@"text/parameters"])
+        {
+            //TODO: parse data
+//            NSData *requestBody = (__bridge_transfer NSData *)CFHTTPMessageCopyBody(message);
+        }
+        else if ([contentTypeValue isEqualToString:@"application/x-apple-binary-plist"])
+        {
+            NSData *requestBody = (__bridge_transfer NSData *)CFHTTPMessageCopyBody(message);
+            NSPropertyListFormat format;
+            NSError *error = nil;
+            NSDictionary *plist = [NSPropertyListSerialization propertyListWithData:requestBody options:NSPropertyListImmutable format:&format error:&error];
+            if (plist == nil) {
+                NSLog(@"Error parsing the property list: %@", error.debugDescription);
+            } else {
+                NSLog(@"Property list:\n%@", plist);
+            }
+        }
+    }
 }
 
 - (void)pairingDidFailWithError:(NSString *)error {
