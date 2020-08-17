@@ -1,0 +1,254 @@
+CLIENT -> SERVER:
+POST /pair-pin-start
+User-Agent: AirPlay/381.13
+X-Apple-HKP: 3
+Content-Length: 0
+
+
+SERVER -> CLIENT:
+HTTP/1.1 200
+Server: AirTunes/377.25.06
+
+
+CLIENT -> SERVER:
+POST /pair-setup
+User-Agent: AirPlay/381.13
+X-Apple-HKP: 3
+Content-Length: 6
+Content-Type: application/octet-stream
+
+
+06 01 01 00 01 01 
+
+
+SERVER -> CLIENT:
+HTTP/1.1 200
+Server: AirTunes/377.25.06
+Content-Type: application/octet-stream
+Content-Length: 409
+
+
+06 01 02 02 10 67 58 86 43 7c 5f d4 07 95 5c 5d 
+e0 f3 fa 91 a6 03 ff fa 61 84 70 c1 1f bc 1e 55 
+bd bb 4d 1c b9 0d 76 1f 43 20 19 09 aa ea fd b2 
+bf 0f 46 23 a3 56 2d e8 c7 21 71 24 a4 84 7d f1 
+7e 2a 47 d2 d8 18 90 de 7c a2 f6 17 3f cb 24 37 
+f6 3b 1f ec 97 39 22 e5 c3 b6 5a e4 ae 9f 35 21 
+88 22 27 f7 14 1b 84 b9 95 73 a3 93 59 39 14 5d 
+5a 2e 0c c3 c1 51 bd b4 16 0c dd 7b d4 f5 7f 90 
+6c 37 93 a4 a8 b1 f7 fb d3 77 02 02 66 3d 78 25 
+19 88 9f b9 d2 cf ca 4a 32 3a fd 81 15 9e 05 60 
+bf 06 ac c7 17 42 e4 1c 35 73 a4 ec 77 c2 91 b9 
+e5 09 27 69 ee 39 64 85 c3 69 6c 58 a0 be 2c b6 
+e9 e5 a8 99 40 f3 b9 b8 4f 73 e6 b9 2d bf 94 1c 
+f7 91 b0 d3 35 b5 15 74 85 eb 05 75 f6 99 4b c4 
+f2 97 25 ef c1 29 e8 f6 d1 52 2a ff 03 4a df 42 
+01 36 3e 51 d4 6b e0 db 67 81 75 a6 e1 f2 66 43 
+a0 b9 89 b1 c5 ec 30 15 1e 5a 0c 33 96 eb 5a 32 
+aa c5 b4 c5 63 5a 03 81 35 26 c9 7f 29 6d 89 0a 
+e3 6d 14 c3 f6 ba 99 f6 85 ac c8 e9 95 3d 90 55 
+87 35 63 2f 9f 14 a5 f1 e6 15 3e 00 25 fc 39 f1 
+d2 85 49 a7 50 b9 3b 2e 7c 9e 3e bc 53 3e 1c 3d 
+8e 5e e5 cd 67 67 b9 f2 5c ae 3b 34 44 d9 50 b3 
+fa b9 5e 49 c4 97 39 03 97 56 4b bd 9c 5f f9 6d 
+30 93 4e 38 ef 96 fd 43 22 76 d3 ba 10 a6 61 2e 
+01 b0 3a 20 7b 1f b7 e9 ec b4 87 97 59 db 02 1a 
+93 b2 ca 11 1b f8 cd 66 6a 
+
+
+CLIENT -> SERVER:
+POST /pair-setup
+User-Agent: AirPlay/381.13
+X-Apple-HKP: 3
+Content-Length: 457
+Content-Type: application/octet-stream
+
+
+06 01 03 03 ff a8 16 24 40 77 5c ff 6f 65 67 95 
+40 1b 16 1a a9 47 d5 d1 a3 55 9a c1 53 7b 41 10 
+81 8f 41 bb 9a 49 4b 81 32 aa ec 86 3d ae 11 cb 
+1a 67 9b 34 d4 a5 79 45 25 15 54 b3 d6 9d 85 d9 
+23 ff 08 ba 96 b0 6c e4 dc 59 f0 af f2 90 6f 78 
+78 c0 32 18 2e e4 ee eb 49 70 e4 5f 5d 69 67 de 
+ce 95 55 15 34 05 fb 71 6f b5 41 85 bc ad 1c 2e 
+a8 11 fb fe b2 ed 52 19 7e 25 a3 b0 94 0b e8 18 
+ba a7 68 9b c7 e5 69 9f 47 0b dc 22 60 b6 7a 0a 
+c5 e9 4b e1 4a 43 72 2e b3 4b f8 eb e7 f0 5a 83 
+4e 25 d7 dd 77 fc f9 52 5f 50 cf e3 50 39 4a f2 
+f1 82 74 05 46 17 7b 7b 4d 70 cc d8 53 0a 34 14 
+64 b4 97 c8 27 63 08 10 43 d0 c4 e6 c9 f3 e1 65 
+18 bf d4 c1 e7 26 ae d3 3b 84 7c 82 8a 93 bf 4e 
+4e 6c f3 c7 bd 44 64 6f f2 46 b6 f9 d2 de 91 6c 
+e8 8f a3 b8 13 a1 ff 0c 91 97 83 b1 cd 0e bf 75 
+4e 39 ac 21 03 81 f0 a0 83 83 e6 7b 3a b7 79 ce 
+43 68 5c 77 82 fb 21 2c b9 47 db 1a be 2f 7a d2 
+1b e7 ba b5 d8 f5 e7 02 cc 38 71 2d 81 a5 17 6e 
+ed 69 98 f2 4a 92 73 f5 1d 8a e8 9b 26 d0 39 c0 
+e6 6c 17 88 bc 5b 09 87 1a 49 a7 4b 39 f2 0e 6a 
+80 67 90 a4 f6 8f fc 49 9e 85 e9 7a fe d0 ec ab 
+43 45 e2 f8 bd d1 ac e5 01 29 27 6b 79 bf ad 0c 
+3b c5 b1 35 19 9e 9b f6 47 07 b9 2b 0d d3 72 00 
+b2 4d 9e 07 35 26 a4 04 40 38 cb 00 37 ff 89 4a 
+c8 70 45 3d 47 5e 40 63 86 7c 2f 84 e8 b7 df b3 
+c4 2a 82 bd cd da 69 bf 78 62 05 62 63 b1 c8 2e 
+ae 2d fd 72 bb 53 1c 79 2e dc 92 8d 52 bc 02 e3 
+86 ca 79 80 05 b1 2a 8b 34 
+
+
+SERVER -> CLIENT:
+HTTP/1.1 200
+Server: AirTunes/377.25.06
+Content-Type: application/octet-stream
+Content-Length: 821
+
+
+06 01 04 04 40 a4 23 e0 9a 12 f3 0b 20 a1 5b c0 
+7d 6e 43 d8 8d 36 07 2f 99 f6 ab fd 3d e2 8b 42 
+5f 4d 46 a0 eb d1 38 bb 08 90 5f 59 55 a9 9d 45 
+94 07 9f c2 f9 68 40 1b a3 3b 92 d7 7a ba 46 2d 
+72 6f 8f 54 35 05 ff b1 bb 4a 23 9b 9d 25 fc f3 
+6d 59 62 a0 9d 50 d5 6a 4a 57 20 91 1f 43 3e 76 
+97 a9 24 30 6f ef 6e 9f bf e5 e8 8f 70 a3 1c b7 
+2e b1 93 62 cc 6c 56 1f 5f 73 48 15 fa 3e d7 10 
+f7 6c 2b fe a0 78 58 9f 4c 1a c9 3e 82 6e e1 9d 
+61 fb ca 42 b9 6c 84 ea 18 76 cc d8 68 36 3e ca 
+59 1f b0 da 9c 53 de 30 9a eb 6c 0c 33 4b 58 3c 
+1f ca f6 14 70 61 ad 1f 01 0e de 08 3e 9d 20 54 
+4a 2d 3b 6a b7 fa 74 d3 2d 54 4b 60 e6 b5 52 3d 
+44 93 99 92 ae 12 8b 3f 6c b8 b1 93 b1 dc 97 c4 
+fb 73 8c 85 a9 8b f8 da 0d e3 31 60 4d b6 c4 09 
+14 75 bf b1 5b da d0 ab 45 59 69 c6 1a 0a 53 51 
+0e 29 68 37 6d 3a 29 98 69 1b c2 d7 c4 84 15 c7 
+58 4c 99 94 1b 91 ea 69 0d 0c 2e 5d 88 34 3b 98 
+73 58 5b 61 6b 67 9d 86 b5 72 fc e9 b8 d1 ca b7 
+84 d6 0c 99 22 32 48 45 c1 5c ac be 6c 31 b9 c5 
+29 d0 90 50 2e ff 05 ff 2f 26 33 7b 04 93 eb 51 
+c1 62 ab 0b 53 7c 8c ae 81 91 e0 26 b4 ca 6b 57 
+0e 84 1d fd 9e 26 6a 70 b8 fd de d6 ba bb 9c 05 
+44 23 b4 a3 18 3d 85 6d a6 de ed 0e e4 0c 45 7a 
+9f be cf 05 89 08 78 94 f4 a1 f9 43 4f e5 5d c5 
+45 33 95 dd 8e 27 88 67 1a fe 72 dd 72 9b 94 aa 
+ee bd 39 2c 4d c4 3b 4e a4 fa 43 e3 9a b4 4c cd 
+5c a6 af 11 f0 99 8b 1a ee a4 85 0f 4a 5d f7 e4 
+3a 3c 98 b4 45 e9 e8 cf f8 98 ea c9 d8 25 fa 83 
+b7 e6 7e bc 28 7f ee 88 7a 1c 28 93 b8 0e 1d f4 
+58 4d 48 8b c4 0a 71 69 9b ac f3 0d c5 e5 e5 b0 
+c3 90 88 96 10 a0 ec b3 49 e5 f1 2f 22 76 b6 74 
+3d cd 28 1e 82 a7 22 b6 dd 2c 32 54 a3 b8 e8 b9 
+99 71 15 fd 57 d7 5b 03 a6 c9 d6 ed f5 97 b5 ec 
+da 05 1d 59 46 a0 a3 2d 6f 93 6a d8 40 ee 07 79 
+66 d9 04 98 92 b5 60 ea 64 67 0a 68 3f b7 61 b1 
+37 da 1e 78 43 d5 13 05 ec 29 3d eb 48 b4 bb 3f 
+8d 74 ae d6 db 8d 07 02 05 7f 2d 56 17 8c cd 58 
+85 4c 17 31 01 ac 3f af c5 50 fe a9 7a ba 44 d4 
+9f f2 aa 40 20 b6 53 34 01 3b 31 7a 59 43 38 d8 
+36 cc 9b ed aa 3b ab f2 44 68 c9 e0 04 78 1d 39 
+33 14 44 fc a1 41 4f f1 dc 83 10 53 c3 60 db 0a 
+2a f1 ce df 8b f2 d3 27 b4 ed f5 cc dd 84 b6 d0 
+5f 56 ea fe 3f 11 e4 2f e7 d5 e3 06 7b 00 35 ad 
+1b c3 5d 89 c8 cf f0 69 7f 2a 09 cf 0c ac 7e 02 
+40 ed 1c d6 b8 be 1e 06 7c 45 3e 27 84 dd 0f b0 
+9b 5a 26 9d 76 a3 17 24 d5 55 89 5a 1b a6 af 5b 
+38 ed 8c 21 07 94 20 d9 ab fa 9f e4 25 37 c2 03 
+98 7b c8 31 2c 38 f5 2f 7c a8 02 e1 8a ec b7 79 
+bd 92 7f a3 27 48 2c 6e a7 cd 8b 84 a6 6e a4 1b 
+e3 b0 29 9e 5c 44 be 7c eb d8 94 ea 07 b9 8b 78 
+c6 50 38 a5 93 
+
+
+CLIENT -> SERVER:
+POST /pair-setup
+User-Agent: AirPlay/381.13
+X-Apple-HKP: 3
+Content-Length: 139
+Content-Type: application/octet-stream
+
+
+06 01 05 05 86 bb 04 12 fd 72 58 16 c3 3e 13 a3 
+1e 95 43 06 e3 92 1d 12 5f f9 97 c4 e5 d5 28 cc 
+b7 c0 c3 f0 c4 6e 21 2c f2 aa a9 95 0f 7e b9 c9 
+e4 65 48 06 0f 04 54 52 25 b7 b3 a9 0c 2f ee 65 
+d2 3b 8b 25 1d 2b 82 12 72 fa 19 da d5 e5 e4 28 
+e4 34 76 64 32 c1 91 31 6f 2c c6 cf 25 08 b8 5e 
+6b e6 a5 77 d3 d3 4c cf ae ed ae c9 77 e6 3b 46 
+4d d9 3e 27 62 9c f1 32 e9 4f f9 d0 a3 61 60 19 
+f5 58 7d cd 79 8a 94 cd c6 43 f8 
+
+
+SERVER -> CLIENT:
+HTTP/1.1 200
+Server: AirTunes/377.25.06
+Content-Type: application/octet-stream
+Content-Length: 186
+
+
+05 b5 42 4a f4 76 68 2b 38 31 16 59 42 17 4d 8f 
+7f 98 f6 2b 40 d1 a2 a8 0f 64 50 2c 31 86 19 01 
+39 42 79 c0 0a 5f bc f3 d9 27 08 69 9f 5b e5 08 
+4e 0d 66 6f cd 87 07 c9 dd 16 77 ee 47 9e 13 ac 
+1b c8 7f 6d 06 35 d6 78 7c b4 69 a6 dc 92 26 17 
+30 78 c5 98 51 91 36 a7 a2 f1 70 41 ce 95 66 1a 
+5d f1 20 92 60 f5 e0 a0 83 00 2c ab 50 1a e3 8d 
+7d 0e b3 3e f7 b8 f0 93 86 fe 7c 3c 03 c9 51 99 
+0f d9 7c ff 57 5e 0b de ba a0 3b 5f 5a e5 92 b4 
+5f 4e 82 5b 84 b6 d0 1f 78 49 c9 f2 6a 70 7f f7 
+c8 b9 d5 b2 2d 09 de 6a 99 ac 5b 40 29 8a 8e 8b 
+86 44 98 03 e3 0f a3 06 01 06 
+
+
+CLIENT -> SERVER:
+POST /pair-verify
+User-Agent: AirPlay/381.13
+X-Apple-HKP: 3
+Content-Length: 37
+Content-Type: application/octet-stream
+
+
+06 01 01 03 20 19 5c 1b a7 51 a1 0d 35 7c 40 47 
+91 5a 10 2d a2 ca 14 a5 b2 72 1f 3a 57 96 0a b6 
+bf 48 fc ae 1b 
+
+
+SERVER -> CLIENT:
+HTTP/1.1 200
+Server: AirTunes/377.25.06
+Content-Type: application/octet-stream
+Content-Length: 140
+
+
+05 65 6a 2f 27 f2 de 62 d5 e2 b3 2c 0b 36 a2 f2 
+10 b2 da 89 11 f9 09 d4 ac 55 c9 62 41 03 0a 4e 
+84 e0 98 a3 59 7c c3 60 47 31 ad e4 34 2f 29 21 
+a5 a2 51 f6 38 30 bc 96 5e d8 bb cd 38 e4 67 c1 
+d4 02 d5 c2 8c a8 66 19 c0 d0 30 ce 0a 3c df 5d 
+2c 84 47 ae ec fb f3 80 2e b5 92 83 50 eb ee 17 
+51 97 01 7c 3b 48 5f 06 01 02 03 20 89 02 96 0e 
+8b 1d 29 fa a5 0f 02 08 09 54 dd bc 67 86 a3 22 
+d7 f0 bc 1f 5f b7 74 7e 03 ca b8 13 
+
+
+CLIENT -> SERVER:
+POST /pair-verify
+User-Agent: AirPlay/381.13
+X-Apple-HKP: 3
+Content-Length: 105
+Content-Type: application/octet-stream
+
+
+06 01 03 05 64 c4 ea 64 a4 57 48 d6 db dc ab f1 
+48 05 ef 5e 39 ab 5f 27 90 5b cc 8b 26 e8 9a 56 
+1d 76 8a 87 cf 61 38 2e d8 62 a0 5a 70 c3 42 ba 
+2b 29 c7 8c 6a fb 71 40 e3 8d a7 4c 7f 95 62 0d 
+18 e8 58 4e 49 19 ba 63 7a 93 66 c4 9e ef 42 9e 
+bd 36 27 a4 bb 43 ea 52 81 da fc e9 d3 8a 9b e1 
+2a 6f 2d 5d 00 d5 c3 3b fd 
+
+
+SERVER -> CLIENT:
+HTTP/1.1 200
+Server: AirTunes/377.25.06
+Content-Type: application/octet-stream
+Content-Length: 3
+
+
+06 01 04 
