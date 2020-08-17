@@ -11,8 +11,8 @@ ed25519 - Copyright (c) 2015 Orson Peters <orsonpeters@gmail.com>
 (Sources https://github.com/orlp/ed25519)
 
 csrp - Copyright (c) 2013 Tom Cocagne
-(License https://github.com/hoccer/csrp/blob/master/LICENSE)
-(Sources https://github.com/hoccer/csrp)
+(License https://github.com/cocagne/csrp/blob/master/LICENSE)
+(Sources https://github.com/cocagne/csrp)
 
 chachapoly - Copyright (c) 2015 Grigori Goronzy <goronzy@kinoho.net>
 (Sources https://github.com/grigorig/chachapoly)
