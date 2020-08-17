@@ -405,6 +405,26 @@ typedef NS_ENUM(NSInteger, AirPlaySenderState) {
 }
 
 - (void)pairingDidFinish {
+    //POST /play
+    //MP4 movies are supported using progressive download.
+    //HTTP Live Streaming might be supported as well, as indicated by the VideoHTTPLiveStreams feature flag.
+    //Start video playback. The body contains the following parameters:
+    //  name                type        description
+    //  -----------------------------------------------------------------
+    //  Content-Location    URL         URL for the video
+    //  Start-Position      float       starting position between 0 and 1
+    //The relative starting position, a float value between 0 (beginning) and 1 (end) is used to start playing a video
+    //at the exact same position as it was on the client.
+//    NSDictionary *plist = @{@"Content-Location": @"http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4",
+//                            @"Start-Position": @(0)};
+//    NSData *bodyData = [NSPropertyListSerialization dataWithPropertyList:plist format:NSPropertyListBinaryFormat_v1_0 options:0 error:nil];
+//    NSString *contentType = @"application/x-apple-binary-plist";
+//    NSMutableDictionary *headers = [NSMutableDictionary dictionaryWithCapacity:3];
+//    [headers setObject:contentType forKey:@"Content-Type"];
+//    [headers setObject:[NSString stringWithFormat:@"%lu", (unsigned long)bodyData.length] forKey:@"Content-Length"];
+//    [self post:@"/play" body:bodyData headers:headers];
+    
+    
     NSDictionary *plist = @{@"sessionUUID": @"b0feaa9c-dd30-11ea-abc1-f01898eb44de",
                             @"timingProtocol": @"None"};
     NSData *bodyData = [NSPropertyListSerialization dataWithPropertyList:plist format:NSPropertyListBinaryFormat_v1_0 options:0 error:nil];
@@ -639,6 +659,15 @@ typedef NS_ENUM(NSInteger, AirPlaySenderState) {
     if (!proof) {
         [self pairingDidFailWithError:@"proof is missing"];
         return;
+    }
+    TLV8Item *serverEncryptedDataItem = [items itemWithTag:TLV8TagEncryptedData];
+    if (serverEncryptedDataItem) {
+        NSData *serverEncryptedData = serverEncryptedDataItem.value;
+        if (serverEncryptedData) {
+            //during the M4 step of the pairing process, in addition of the PROOF TLV used in regular pair-setup, the following TLV is added:
+            //TLV: 0x05,N,ENCRYPTED_DATA_WITH_TAG where N (int16) is the length of ENCRYPTED_DATA_WITH_TAG
+            NSLog(@"Encrypted data is available (%lu bytes).", (unsigned long)serverEncryptedData.length);
+        }
     }
     
     // Check M2
