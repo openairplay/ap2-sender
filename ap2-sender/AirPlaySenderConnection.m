@@ -939,9 +939,9 @@ typedef NS_ENUM(NSInteger, AirPlaySenderState) {
     self.state = AirPlaySenderStateWaitingOnPairVerify2;
     
     self.accessoryCurvePublic = [items itemWithTag:TLV8TagPublicKey].value;
-    NSData *accessoryEncryptedData = [items itemWithTag:TLV8TagEncryptedData].value;
-    NSData *accessoryEncryptedTlvData = [accessoryEncryptedData subdataWithRange:NSMakeRange(0, accessoryEncryptedData.length - TAG_LENGTH)];
-    NSData *accessoryTagData = [accessoryEncryptedData subdataWithRange:NSMakeRange(accessoryEncryptedData.length - TAG_LENGTH, TAG_LENGTH)];
+    NSData *accessoryEncryptedDataWithTag = [items itemWithTag:TLV8TagEncryptedData].value;
+    NSData *accessoryEncryptedTlvData = [accessoryEncryptedDataWithTag subdataWithRange:NSMakeRange(0, accessoryEncryptedDataWithTag.length - TAG_LENGTH)];
+    NSData *accessoryTagData = [accessoryEncryptedDataWithTag subdataWithRange:NSMakeRange(accessoryEncryptedDataWithTag.length - TAG_LENGTH, TAG_LENGTH)];
     
     uint8_t accessory_shared_key[32];
     curve25519_donna(accessory_shared_key, self.verifierPrivateKeyData.bytes, self.accessoryCurvePublic.bytes);
@@ -1084,11 +1084,11 @@ typedef NS_ENUM(NSInteger, AirPlaySenderState) {
         unsigned short *bytes = (unsigned short *)&length;
         NSData *lengthData = [NSData dataWithBytes:bytes length:sizeof(unsigned short)];
         NSData *blockData = [data subdataWithRange:NSMakeRange(offset, length)];
-        unsigned long long c = (unsigned long long)self.inCount;
-        unsigned long long *in_count_bytes = &c;
+        unsigned long long c = (unsigned long long)self.outCount;
+        unsigned long long *out_count_bytes = &c;
         char zeroBytes[4] = {0x00, 0x00, 0x00, 0x00};
         NSMutableData *nonce = [NSMutableData dataWithBytes:zeroBytes length:4];
-        [nonce appendData:[NSData dataWithBytes:in_count_bytes length:8]];
+        [nonce appendData:[NSData dataWithBytes:out_count_bytes length:8]];
         
         unsigned char tag[TAG_LENGTH];
         int len = (int)blockData.length;
@@ -1114,7 +1114,7 @@ typedef NS_ENUM(NSInteger, AirPlaySenderState) {
 
 - (NSString *)randomStringWithLength:(int)len {
     NSString *letters = @"abcdef0123456789";
-    NSMutableString *randomString = [NSMutableString stringWithCapacity: len];
+    NSMutableString *randomString = [NSMutableString stringWithCapacity:len];
     for (int i = 0; i < len; i++) {
         [randomString appendFormat:@"%C", [letters characterAtIndex:(NSUInteger)arc4random_uniform((uint32_t)[letters length])]];
     }
