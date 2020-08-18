@@ -226,7 +226,7 @@ typedef NS_ENUM(NSInteger, AirPlaySenderState) {
     }
 }
 
-#pragma mark - Private
+#pragma mark - Processing Incoming Bytes
 
 // YES return means that a complete request was parsed, and the caller
 // should call again as the buffered bytes may have another complete
@@ -564,10 +564,10 @@ typedef NS_ENUM(NSInteger, AirPlaySenderState) {
     _user = srp_user_new(SRP_SHA512, SRP_NG_CUSTOM, @"Pair-Setup".UTF8String, (const unsigned char *)passwordChar, (int)passwordLength, n_hex, g_hex);
     
     char stateBytes[] = {PairingStateM1};
-    char methodBytes[] = {0x01};
+    char pairingMethodBytes[] = {PairingMethodPairSetup};
     TLV8Item *stateItem = [[TLV8Item alloc] initWithTag:TLV8TagState value:[NSData dataWithBytes:stateBytes length:1]];
-    TLV8Item *methodItem = [[TLV8Item alloc] initWithTag:TLV8TagMethod value:[NSData dataWithBytes:methodBytes length:1]];
-    NSArray *tlvItems = @[stateItem, methodItem];
+    TLV8Item *pairingMethodItem = [[TLV8Item alloc] initWithTag:TLV8TagMethod value:[NSData dataWithBytes:pairingMethodBytes length:1]];
+    NSArray *tlvItems = @[stateItem, pairingMethodItem];
     uint8_t *encoded_tlv;
     int encoded_tlv_len = [TLV8 encode:tlvItems toBytes:&encoded_tlv];
     
@@ -669,13 +669,15 @@ typedef NS_ENUM(NSInteger, AirPlaySenderState) {
     }
     hexdump("SRP Shared key:\n", (unsigned char *)sessionKey, 64);
     
+    //in case the M1 step is done with the "Pair Setup with Auth" method,
+    //during the M4 step of the pairing process, in addition to the PROOF TLV used in regular pair-setup,
+    //the following TLV is added:
+    //    TLV: 0x05,N,ENCRYPTED_DATA_WITH_TAG where N (int16) is the length of ENCRYPTED_DATA_WITH_TAG
+    //see https://openairplay.github.io/airplay-spec/pairing/hkp.html#mfi-authentication
     TLV8Item *serverEncryptedDataItem = [items itemWithTag:TLV8TagEncryptedData];
     if (serverEncryptedDataItem) {
         NSData *serverEncryptedDataWithTag = serverEncryptedDataItem.value;
         if (serverEncryptedDataWithTag) {
-            //See https://openairplay.github.io/airplay-spec/pairing/hkp.html#mfi-authentication
-            //During the M4 step of the pairing process, in addition of the PROOF TLV used in regular pair-setup, the following TLV is added:
-            //TLV: 0x05,N,ENCRYPTED_DATA_WITH_TAG where N (int16) is the length of ENCRYPTED_DATA_WITH_TAG
             NSLog(@"Encrypted data is available (%lu bytes).", (unsigned long)serverEncryptedDataWithTag.length);
             
             unsigned char prk[USHAMaxHashSize+1];

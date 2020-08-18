@@ -10,15 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSUInteger, PairingState) {
-    PairingStateM1 = 0x01,
-    PairingStateM2 = 0x02,
-    PairingStateM3 = 0x03,
-    PairingStateM4 = 0x04,
-    PairingStateM5 = 0x05,
-    PairingStateM6 = 0x06
-};
-
 typedef NS_ENUM(NSUInteger, TLV8Tag) {
     TLV8TagMethod = 0,
     TLV8TagIdentifier = 1,
